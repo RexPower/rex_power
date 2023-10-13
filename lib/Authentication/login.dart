@@ -12,13 +12,17 @@ class Login extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset(
-            'assets/inverter.jpg',
-            height: 200,
-            width: 100,
-            fit: BoxFit.cover,
+          const CircleAvatar(
+            radius: 100,
+            backgroundImage: AssetImage('assets/power.jpg'),
           ),
-          const Center(child: Text('IOT')),
+          const SizedBox(height: 16.0),
+          const Center(
+              child: Text(
+            'IOT',
+            style: TextStyle(fontSize: 62, color: Color(0xFF035515)),
+          )),
+          SizedBox(height: 16.0),
           const Center(
             child: Text(
               'Your everyday consumption record',
@@ -26,47 +30,15 @@ class Login extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: ElevatedButton(
-              onPressed: () async {
-                GoRouter.of(context).push(RouteNames.signin);
-              },
-              style: OutlinedButton.styleFrom(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(
-                      50,
-                    ),
-                  ),
-                ),
-                maximumSize: const Size(double.infinity, 100),
-                backgroundColor: const Color(0xFF035515),
-                side: const BorderSide(
-                  color: Color(0xFF035515),
-                ),
-              ),
-              child: const Text(
-                'Get Started',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SizedBox(
-                width: double.infinity,
+                width: 300,
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () async {
-                    GoRouter.of(context).push(RouteNames.signin);
+                    GoRouter.of(context).push(RouteNames.register);
                   },
                   style: OutlinedButton.styleFrom(
                     shape: const RoundedRectangleBorder(
@@ -83,7 +55,7 @@ class Login extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    'Login',
+                    'Get Started',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
@@ -94,15 +66,66 @@ class Login extends StatelessWidget {
               ),
             ],
           ),
-          RichText(
-            text: const TextSpan(
-              text: 'New around here? ',
-              // style: DefaultTextStyle.of(context).style,
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'Sign in',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ],
+          const SizedBox(height: 16),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 300,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    GoRouter.of(context).push(RouteNames.signin);
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          50,
+                        ),
+                      ),
+                    ),
+                    maximumSize: const Size(double.infinity, 100),
+                    backgroundColor: Colors.white,
+                    side: const BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(
+                      color: Color(0xFF035515),
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            child: InkWell(
+              onTap: () {
+                GoRouter.of(context).push(RouteNames.login);
+              },
+              child: RichText(
+                text: const TextSpan(
+                    text: 'New Around here? ',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'DM Sans',
+                      fontSize: 16,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'Sign in',
+                        style: TextStyle(
+                            color: Color(0xFF035515), fontSize: 16),
+                      ),
+                    ]),
+              ),
             ),
           ),
         ],
