@@ -164,7 +164,6 @@ class RegisterState extends State<Register> {
                         fontWeight: FontWeight.bold,
                         color: Colors.blue,
                       ),
-                      // TODO: Implement terms and conditions logic
                     ),
                   ],
                 ),
@@ -200,9 +199,7 @@ class RegisterState extends State<Register> {
                 ),
               ),
 
-
-            ],
-          ),
+        ] ),
         ),
       ),
     ));

@@ -23,12 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFFFFFFF),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Center(
-              child: Image.asset("assets/rex-power.jpg"),
+              child: Image.asset("assets/power2.jpg"),
             ),
           ]),
         ),

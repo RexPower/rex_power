@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../Routing/router.dart';
 
@@ -14,21 +15,18 @@ class Login extends StatelessWidget {
         children: <Widget>[
           const CircleAvatar(
             radius: 100,
-            backgroundImage: AssetImage('assets/power.jpg'),
+            backgroundImage: AssetImage('assets/power2.jpg'),
           ),
           const SizedBox(height: 16.0),
           const Center(
-              child: Text(
-            'IOT',
-            style: TextStyle(fontSize: 62, color: Color(0xFF035515)),
-          )),
-          SizedBox(height: 16.0),
-          const Center(
-            child: Text(
-              'Your everyday consumption record',
-              style: TextStyle(fontSize: 20),
-            ),
+          ) ,
+          const SizedBox(height: 16.0),
+        Center(
+          child: Text(
+            'Your everyday consumption record',
+            style: GoogleFonts.baiJamjuree(fontSize: 20),
           ),
+        ),
           const SizedBox(height: 16),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -128,7 +126,7 @@ class Login extends StatelessWidget {
               ),
             ),
           ),
-        ],
+    ]
       ),
     );
   }
