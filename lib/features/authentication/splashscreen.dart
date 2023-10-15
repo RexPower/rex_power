@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../Routing/router.dart';
+import '../../routing/router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,14 +23,20 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Center(
-              child: Image.asset("assets/rex-power.jpg"),
-            ),
-          ]),
+      backgroundColor: const Color(0xFFFFFFFF),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Image.asset("assets/power2.jpg"),
+                  ),
+                ]),
+          ),
         ),
       ),
     );

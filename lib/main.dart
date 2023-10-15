@@ -1,35 +1,55 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:rexpower/constants/colors.dart';
+import 'package:rexpower/utilities/generate_color_swatch.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 
-import 'Routing/router.dart';
+import 'routing/router.dart';
 
+void main() async {
+  ///Call this first to make sure we can make other system level calls safely
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
-  runApp(const MyApp());
+  if (Platform.isAndroid) {
+    // current: #1 1440x3120 @ 60Hz
+    // new: #2 1440x3120 @ 90Hz
+    await FlutterDisplayMode.setHighRefreshRate();
+  }
+
+  runApp(const RexPowerApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+class RexPowerApp extends StatelessWidget {
+  const RexPowerApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-       routeInformationParser: router.routeInformationParser,
-        routeInformationProvider: router.routeInformationProvider,
-        routerDelegate: router.routerDelegate,
-        // End: Routing params
+    return GetMaterialApp.router(
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
+      routerDelegate: router.routerDelegate,
+      // End: Routing params
       debugShowCheckedModeBanner: false,
       title: 'RexPower ',
       theme: ThemeData(
-          textButtonTheme: TextButtonThemeData(
+        useMaterial3: true,
+        primaryColor: primaryColor,
+        primarySwatch: generateMaterialColorSwatch(primaryColor),
+        textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-          primary: const Color(0xFF035515),
-      textStyle: const TextStyle(
-        fontSize: 24,
+            foregroundColor: const Color(0xFF035515),
+            textStyle: const TextStyle(
+              fontSize: 24,
+            ),
+          ),
+        ),
       ),
-    ),
-    ),
+      darkTheme: ThemeData.dark().copyWith(
+        useMaterial3: true,
       ),
+      themeMode: ThemeMode.light,
     );
   }
 }
