@@ -57,4 +57,5 @@ class RouteNames {
   static const String marketplace = "/marketplace";
   static const String helpDesk = "/help-dessk";
   static const String profile = "/profile";
+  static const String editprofilescreen = "/EditProfileScreen";
 }

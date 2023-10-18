@@ -1,60 +1,130 @@
 import 'package:flutter/material.dart';
-import 'package:rexpower/constants/colors.dart';
-import 'package:rexpower/features/home/components/consumption_record_stack.dart';
-import 'package:rexpower/features/home/components/global_bottom_nav.dart';
-import 'package:rexpower/features/home/components/summary_card.dart';
-import 'package:rexpower/global_components/global_appbar.dart';
-import 'package:rexpower/features/home/components/daily_usage_chart.dart';
-import 'package:rexpower/global_components/global_heading_text.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+import '../../routing/router.dart';
 
-class HomeDashboard extends StatefulWidget {
-  const HomeDashboard({super.key});
+
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeDashboard> createState() => _HomeDashboardState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _HomeDashboardState extends State<HomeDashboard> {
+class _ProfileScreenState extends State<ProfileScreen> {
+
+
+  @override
+  void initState() {
+
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const GlobalAppBar(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  GlobalHeadingText('Daily Usage'),
-                  const DailyUsageChart(),
-                  SummaryCard(
-                    columns: [
-                      SummaryCardItem(
-                          titleText: "Peak usage", valueText: "250w"),
-                      SummaryCardItem(
-                          titleText: "Lowest usage", valueText: "20w"),
-                      SummaryCardItem(
-                          titleText: "Units used", valueText: "N200"),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  GlobalHeadingText('Consumption Record'),
-                  ConsumptionRecordStack(),
-                ],
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            'Profile',
+            style: TextStyle(
+                color: Colors.black54,
+                fontFamily: 'Satoshi',
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        // actions: [
+        //   Row(children: [
+        //     const MenuButton(
+        //       popupColor: Colors.black,
+        //     ),
+        //     Container(
+        //       width: menuPadding,
+        //     )
+        //   ]),
+        // ],
+        elevation: 0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.white,
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Obx(() => CircleAvatar(
+                radius: 50.0,
+          // backgroundImage: NetworkImage(
+          //     _authController.currentUser.value?.photoURL ??
+          //         ''),
               ),
-            )
-          ],
+              ),
+              Container(
+                width: double.infinity,
+                height: 40,
+                margin: const EdgeInsets.only(
+                  right: 84,
+                  left: 84,
+                  top: 10,
+                ),
+                child: ElevatedButton(
+                  onPressed: () {
+                    GoRouter.of(context).push(RouteNames.editprofilescreen);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          10,
+                        ),
+                      ),
+                    ),
+                    maximumSize: const Size(double.infinity, 100),
+                    backgroundColor: const Color(0XFF1C8E77),
+                  ),
+                  child: const Text(
+                    'Edit Profile',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Satoshi',
+                        fontSize: 14),
+                  ),
+                ),
+              ),
+              Container(height: 30),
+              const Divider(
+                color: Color(0xFF000000),
+              ),
+              Container(height: 15),
+              TextButton(
+                child: ListTile(
+                  contentPadding:
+                  const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
+                  leading: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      'svgs/Logout.png',
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                  title: const Text(
+                    'Logout',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                onPressed: () async {
+
+                },
+              )
+            ],
+          ),
         ),
       ),
-      bottomNavigationBar: GlobalBottomNav(),
     );
   }
 }
