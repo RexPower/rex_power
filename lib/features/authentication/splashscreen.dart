@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../routing/router.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+   const SplashScreen({super.key});
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
+    Timer(Duration(seconds: 3), () {
       GoRouter.of(context).go(RouteNames.login);
     });
   }
@@ -23,10 +23,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
-      body: SingleChildScrollView(
+      backgroundColor: Color(0xFFFFFFFF),
+      body: ClipRect(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding:  EdgeInsets.all(16.0),
           child: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -21,15 +21,28 @@ final router = GoRouter(
     ),
     GoRoute(
       path: RouteNames.splashscreen,
-      builder: (context, state) => const SplashScreen(),
+      builder: (context, state) => SplashScreen(),
     ),
     GoRoute(
       path: RouteNames.register,
-      builder: (context, state) => const Register(),
+      builder: (context, state) => Register(),
     ),
+    
     GoRoute(
       path: RouteNames.home,
-      builder: (context, state) => const HomeDashboard(),
+      builder: (context, state) => HomeDashboard(),
+    ),
+    GoRoute(
+      path: RouteNames.marketplace,
+      builder: (context, state) => HomeDashboard(),
+    ),
+    GoRoute(
+      path: RouteNames.helpDesk,
+      builder: (context, state) => HomeDashboard(),
+    ),
+    GoRoute(
+      path: RouteNames.profile,
+      builder: (context, state) => HomeDashboard(),
     ),
   ],
 );
@@ -39,5 +52,9 @@ class RouteNames {
   static const String login = "/Login";
   static const String signin = "/SignIn";
   static const String register = "/Register";
+
   static const String home = "/home";
+  static const String marketplace = "/marketplace";
+  static const String helpDesk = "/help-dessk";
+  static const String profile = "/profile";
 }
