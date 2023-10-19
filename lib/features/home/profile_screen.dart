@@ -6,7 +6,7 @@ import 'package:rexpower/global_components/global_appbar.dart';
 import 'package:rexpower/features/home/components/global_bottom_nav.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key:t key);
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();

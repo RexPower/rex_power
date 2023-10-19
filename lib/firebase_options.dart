@@ -49,7 +49,7 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
+  static FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDu0hbvD_6a9k9vz68Qhl8p26IyUvkbsL8',
     appId: '1:866299104619:android:cd72ad5bb4a7d226c1502e',
     messagingSenderId: '866299104619',
@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'rex-power.appspot.com',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
+  static FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA0j259rjGGshoSomI93hRZZ19uTC0fj1Y',
     appId: '1:866299104619:ios:20a00a227563e1abc1502e',
     messagingSenderId: '866299104619',
