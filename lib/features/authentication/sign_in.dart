@@ -1,23 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-
+import '../../Controllers/auth_controller.dart';
+import '../../Controllers/loading_controller.dart';
 import '../../routing/router.dart';
+import '../../utilities/route_path.dart';
+import '../../utilities/show_error_snackbar.dart';
+import '../../utilities/show_snackbar.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
   final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
 
+  final AuthController _authController =
+  Get.put<AuthController>(AuthController());
+  // bool passwordVisible = true;
+  final _formKey = GlobalKey<FormState>();
   bool passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             const Text(
               'Sign In',
               style: TextStyle(
@@ -37,6 +50,17 @@ class SignIn extends StatelessWidget {
             Container(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+
+                  if (!GetUtils.isEmail(value)) {
+                    return "Email is not valid";
+                  }
+
+                  return null;
+                },
                 controller: _emailController,
                 decoration: const InputDecoration(
                   labelText: "Email",
@@ -49,6 +73,12 @@ class SignIn extends StatelessWidget {
             Container(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
                 obscureText: !passwordVisible,
                 controller: _passwordController,
                 decoration: InputDecoration(
@@ -71,92 +101,97 @@ class SignIn extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16.0),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.apple, color: Colors.black,),
-                  label: const Text('Sign in with Apple', style: TextStyle(color: Colors.black),),
-                ),
-                const SizedBox(height: 8.0),
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.g_mobiledata_sharp,color: Color(0xFFFBBC04),),
-                  label: const Text('Sign in with Google', style: TextStyle(color: Color(0xFF4285F4)),),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            const SizedBox(height: 30),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 300,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      GoRouter.of(context).push(RouteNames.home);
-                    },
-                    style: OutlinedButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                            50,
-                          ),
-                        ),
-                      ),
-                      maximumSize: const Size(double.infinity, 100),
-                      backgroundColor: const Color(0xFF035515),
-                      side: const BorderSide(
-                        color: Colors.white,
-                      ),
-                    ),
-                    child: const Text(
-                      'Login Now',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            Container(
+              width: double.infinity,
+              height: 50,
+              margin: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    LoadingController().startLoading();
 
-        const SizedBox(height: 15.0),
-        const SizedBox(height: 29),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 15),
-          child: InkWell(
-            onTap: () {
-              GoRouter.of(context).push(RouteNames.login);
-            },
-            child: RichText(
-              text: const TextSpan(
-                  text: 'If your are a New User? ',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'DM Sans',
-                    fontSize: 15,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: 'Register Now',
-                      style: TextStyle(
-                          color: Color(0xFF035514), fontSize: 16),
+                    var userMessage = "";
+
+                    _authController
+                        .signInwithEmailAndPassword(
+                        _emailController.value.text.trim(),
+                        _passwordController.value.text.trim())
+                        .then((value) {
+                      if (value) {
+                        LoadingController().stopLoading();
+                        Get.offAllNamed(RoutePaths.home);
+
+                        userMessage = "Login in successfully";
+                        debugPrint(userMessage);
+                      } else {
+                        LoadingController().stopLoading();
+                        showErrorSnackbar(
+                            "Login failed, Something went wrong");
+                      }
+                    }).onError((error, stackTrace) {
+                      LoadingController().stopLoading();
+
+                      userMessage = "Login failed, $error";
+                      showSnackbar("Oops", userMessage);
+                      debugPrint(userMessage);
+                    });
+                  }
+                },
+                style: OutlinedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        60,
+                      ),
                     ),
-                  ]),
+                  ),
+                  maximumSize: const Size(double.infinity, 100),
+                  backgroundColor: Colors.teal,
+                  side: const BorderSide(
+                    color: Colors.teal,
+                  ),
+                ),
+                child: const Text(
+                  'Log In',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
-          ),
+            const SizedBox(height: 15.0),
+            const SizedBox(height: 29),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: InkWell(
+                onTap: () {
+                  GoRouter.of(context).push(RouteNames.login);
+                },
+                child: RichText(
+                  text: const TextSpan(
+                      text: 'If your are a New User? ',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'DM Sans',
+                        fontSize: 15,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'Register Now',
+                          style:
+                              TextStyle(color: Color(0xFF035514), fontSize: 16),
+                        ),
+                      ]),
+                ),
+              ),
+            ),
+          ]),
         ),
-     ]),
-    )
+      ),
     );
   }
 
-  void setState(Null Function() param0) {}
+  // void setState(Null Function() param0) {}
 }

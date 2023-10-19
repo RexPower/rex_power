@@ -1,7 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
+import '../../Controllers/auth_controller.dart';
+import '../../Controllers/loading_controller.dart';
 import '../../routing/router.dart';
+import '../../utilities/route_path.dart';
+import '../../utilities/show_error_snackbar.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -54,6 +59,12 @@ class RegisterState extends State<Register> {
                     Container(
                       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
                         controller: _firstAndNameController,
                         decoration: const InputDecoration(
                           labelText: "First and last Name",
@@ -66,6 +77,17 @@ class RegisterState extends State<Register> {
                     Container(
                       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+
+                          if (!GetUtils.isEmail(value)) {
+                            return "Email is not valid";
+                          }
+
+                          return null;
+                        },
                         controller: _emailController,
                         decoration: const InputDecoration(
                           labelText: "Email Address",
@@ -78,6 +100,12 @@ class RegisterState extends State<Register> {
                     Container(
                       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
                         controller: _phoneNumberController,
                         decoration: const InputDecoration(
                           labelText: "start with your country code (+234)",
@@ -90,6 +118,12 @@ class RegisterState extends State<Register> {
                     Container(
                       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
                         obscureText: passwordVisible,
                         controller: _passwordController,
                         decoration: InputDecoration(
@@ -120,6 +154,12 @@ class RegisterState extends State<Register> {
                     Container(
                       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
                         obscureText: passwordVisible,
                         controller: _confirmPasswordController,
                         decoration: InputDecoration(
@@ -185,12 +225,39 @@ class RegisterState extends State<Register> {
                     const SizedBox(height: 16.0),
                     const SizedBox(height: 30.0),
                     Container(
-                      width: 300,
+                      width: double.infinity,
                       height: 50,
                       margin: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          GoRouter.of(context).push(RouteNames.signin);
+                          if (_formKey.currentState!.validate()) {
+                            LoadingController().startLoading();
+
+                            if (_passwordController.value.text.trim() !=
+                                _confirmPasswordController.value.text.trim()) {
+                              showErrorSnackbar('Password must match');
+                              LoadingController().stopLoading();
+                            }
+
+                            AuthController()
+                                .register(
+                                _emailController.value.text.trim(),
+                                _passwordController.value.text.trim(),
+                                _phoneNumberController.value.text.trim(),
+                                _firstAndNameController.value.text.trim())
+                                .then((value) {
+                              if (value) {
+                                Get.toNamed(RoutePaths.login);
+                              }
+                            }).catchError((error) {
+                              LoadingController().stopLoading();
+
+                              showErrorSnackbar("Sign in failed");
+                              if (kDebugMode) {
+                                debugPrint(error);
+                              }
+                            });
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           shape: const RoundedRectangleBorder(
@@ -199,7 +266,7 @@ class RegisterState extends State<Register> {
                             ),
                           ),
                           maximumSize: const Size(double.infinity, 100),
-                          backgroundColor: const Color(0xFF035515),
+                          backgroundColor: Colors.teal,
                           side: const BorderSide(
                             color: Colors.teal,
                           ),
