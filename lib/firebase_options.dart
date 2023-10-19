@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '866299104619',
     projectId: 'rex-power',
     storageBucket: 'rex-power.appspot.com',
-    iosClientId: '866299104619-0kki2gdtqh62qo7vqke1erck4f3l6f2b.apps.googleusercontent.com',
+    iosClientId:
+        '866299104619-0kki2gdtqh62qo7vqke1erck4f3l6f2b.apps.googleusercontent.com',
     iosBundleId: 'com.rexpower.app.rexPower',
   );
 }
