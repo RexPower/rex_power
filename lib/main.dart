@@ -32,7 +32,7 @@ class RexPowerApp extends StatelessWidget {
       routerDelegate: router.routerDelegate,
       // End: Routing params
       debugShowCheckedModeBanner: false,
-      title: 'RexPower ',
+      title: 'RexPower',
       theme: ThemeData(
         useMaterial3: true,
         primaryColor: primaryColor,
@@ -46,9 +46,7 @@ class RexPowerApp extends StatelessWidget {
           ),
         ),
       ),
-      darkTheme: ThemeData.dark().copyWith(
-        useMaterial3: true,
-      ),
+      darkTheme: ThemeData.dark().copyWith(),
       themeMode: ThemeMode.light,
     );
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ConsumptionRecordStack extends StatefulWidget {
   const ConsumptionRecordStack({super.key});
@@ -9,10 +8,8 @@ class ConsumptionRecordStack extends StatefulWidget {
 }
 
 class _ConsumptionRecordStackState extends State<ConsumptionRecordStack> {
-
   @override
   Widget build(BuildContext context) {
-
     double cardHeight = 100;
     double widthOFirst = (MediaQuery.of(context).size.width * 0.7) - 16;
     double widthOfSecond = (MediaQuery.of(context).size.width * 0.85) - 16;
@@ -25,7 +22,8 @@ class _ConsumptionRecordStackState extends State<ConsumptionRecordStack> {
         children: <Widget>[
           Positioned(
             bottom: 20,
-            left: (MediaQuery.of(context).size.width/2) - (widthOFirst/2) - 8,
+            left:
+                (MediaQuery.of(context).size.width / 2) - (widthOFirst / 2) - 8,
             child: Container(
               width: widthOFirst,
               height: cardHeight,
@@ -37,30 +35,36 @@ class _ConsumptionRecordStackState extends State<ConsumptionRecordStack> {
           ),
           Positioned(
             bottom: 10,
-            left: (MediaQuery.of(context).size.width/2) - (widthOfSecond/2) - 8,
+            left: (MediaQuery.of(context).size.width / 2) -
+                (widthOfSecond / 2) -
+                8,
             child: Container(
               width: widthOfSecond,
               height: cardHeight,
               child: Card(
                 color: Theme.of(context).primaryColor.withOpacity(.6),
-                  child: Container(),
+                child: Container(),
               ),
             ),
           ),
           Positioned(
             bottom: 0,
-            left: (MediaQuery.of(context).size.width/2) - (widthOfThird/2) - 8,
+            left: (MediaQuery.of(context).size.width / 2) -
+                (widthOfThird / 2) -
+                8,
             child: Container(
               width: widthOfThird,
               height: cardHeight,
               child: Card(
-                color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).primaryColor,
                   child: Column(
                     children: [
-                      Text("Daytime ocnsumption Record", style: TextStyle(color: Colors.white),)
+                      Text(
+                        "Daytime ocnsumption Record",
+                        style: TextStyle(color: Colors.white),
+                      )
                     ],
-                  )
-              ),
+                  )),
             ),
           ),
         ],

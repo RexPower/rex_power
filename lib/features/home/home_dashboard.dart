@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rexpower/constants/colors.dart';
 import 'package:rexpower/features/home/components/consumption_record_stack.dart';
 import 'package:rexpower/features/home/components/global_bottom_nav.dart';
 import 'package:rexpower/features/home/components/summary_card.dart';
