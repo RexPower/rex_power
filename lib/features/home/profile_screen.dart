@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import '../../routing/router.dart';
-
+import 'package:rexpower/global_components/global_appbar.dart';
+import 'package:rexpower/features/home/components/global_bottom_nav.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key:t key);
@@ -12,54 +13,27 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-
   @override
   void initState() {
-
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Profile',
-            style: TextStyle(
-                color: Colors.black54,
-                fontFamily: 'Satoshi',
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-        // actions: [
-        //   Row(children: [
-        //     const MenuButton(
-        //       popupColor: Colors.black,
-        //     ),
-        //     Container(
-        //       width: menuPadding,
-        //     )
-        //   ]),
-        // ],
-        elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.white,
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Obx(() => CircleAvatar(
-                radius: 50.0,
-          // backgroundImage: NetworkImage(
-          //     _authController.currentUser.value?.photoURL ??
-          //         ''),
-              ),
+              GlobalAppBar(),
+              Obx(
+                () => CircleAvatar(
+                  radius: 50.0,
+                  // backgroundImage: NetworkImage(
+                  //     _authController.currentUser.value?.photoURL ??
+                  //         ''),
+                ),
               ),
               Container(
                 width: double.infinity,
@@ -101,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               TextButton(
                 child: ListTile(
                   contentPadding:
-                  const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
                   leading: Container(
                     padding: const EdgeInsets.all(8.0),
                     child: Image.asset(
@@ -117,14 +91,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
-                onPressed: () async {
-
-                },
+                onPressed: () async {},
               )
             ],
           ),
         ),
       ),
+      bottomNavigationBar: GlobalBottomNav(),
     );
   }
 }
