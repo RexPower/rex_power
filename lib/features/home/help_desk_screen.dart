@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rexpower/constants/colors.dart';
 import 'package:rexpower/features/home/components/consumption_record_stack.dart';
 import 'package:rexpower/features/home/components/global_bottom_nav.dart';
 import 'package:rexpower/features/home/components/summary_card.dart';
@@ -7,14 +6,14 @@ import 'package:rexpower/global_components/global_appbar.dart';
 import 'package:rexpower/features/home/components/daily_usage_chart.dart';
 import 'package:rexpower/global_components/global_heading_text.dart';
 
-class HomeDashboard extends StatefulWidget {
-  const HomeDashboard({super.key});
+class HelpDesk extends StatefulWidget {
+  const HelpDesk({super.key});
 
   @override
-  State<HomeDashboard> createState() => _HomeDashboardState();
+  State<HelpDesk> createState() => _HelpDeskState();
 }
 
-class _HomeDashboardState extends State<HomeDashboard> {
+class _HelpDeskState extends State<HelpDesk> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

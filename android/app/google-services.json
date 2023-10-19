@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "866299104619",
+    "project_id": "rex-power",
+    "storage_bucket": "rex-power.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866299104619:android:cd72ad5bb4a7d226c1502e",
+        "android_client_info": {
+          "package_name": "com.rexpower.app.rex_power"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866299104619-fimq9u7d353h17a6l68dani49caf6ujp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu0hbvD_6a9k9vz68Qhl8p26IyUvkbsL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866299104619-fimq9u7d353h17a6l68dani49caf6ujp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

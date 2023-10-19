@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:rexpower/features/authentication/sign_in.dart';
 import 'package:rexpower/features/home/home_dashboard.dart';
+import 'package:rexpower/features/home/profile_screen.dart';
 
 import '../features/authentication/login.dart';
 import '../features/authentication/register.dart';
@@ -27,7 +28,6 @@ final router = GoRouter(
       path: RouteNames.register,
       builder: (context, state) => Register(),
     ),
-    
     GoRoute(
       path: RouteNames.home,
       builder: (context, state) => HomeDashboard(),
@@ -42,7 +42,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: RouteNames.profile,
-      builder: (context, state) => HomeDashboard(),
+      builder: (context, state) => ProfileScreen(),
     ),
   ],
 );

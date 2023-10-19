@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import '../../routing/router.dart';
 
-
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -12,12 +11,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-
   @override
   void initState() {
-
-
     super.initState();
   }
 
@@ -54,12 +49,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Obx(() => CircleAvatar(
-                radius: 50.0,
-          // backgroundImage: NetworkImage(
-          //     _authController.currentUser.value?.photoURL ??
-          //         ''),
-              ),
+              Obx(
+                () => CircleAvatar(
+                  radius: 50.0,
+                  // backgroundImage: NetworkImage(
+                  //     _authController.currentUser.value?.photoURL ??
+                  //         ''),
+                ),
               ),
               Container(
                 width: double.infinity,
@@ -101,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               TextButton(
                 child: ListTile(
                   contentPadding:
-                  const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
                   leading: Container(
                     padding: const EdgeInsets.all(8.0),
                     child: Image.asset(
@@ -117,9 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
-                onPressed: () async {
-
-                },
+                onPressed: () async {},
               )
             ],
           ),
