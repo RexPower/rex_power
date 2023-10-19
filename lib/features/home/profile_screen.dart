@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import '../../routing/router.dart';
+import 'package:rexpower/global_components/global_appbar.dart';
+import 'package:rexpower/features/home/components/global_bottom_nav.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -19,36 +21,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Profile',
-            style: TextStyle(
-                color: Colors.black54,
-                fontFamily: 'Satoshi',
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-        // actions: [
-        //   Row(children: [
-        //     const MenuButton(
-        //       popupColor: Colors.black,
-        //     ),
-        //     Container(
-        //       width: menuPadding,
-        //     )
-        //   ]),
-        // ],
-        elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.white,
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              GlobalAppBar(),
               Obx(
                 () => CircleAvatar(
                   radius: 50.0,
@@ -119,6 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: GlobalBottomNav(),
     );
   }
 }
