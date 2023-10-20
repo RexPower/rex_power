@@ -18,7 +18,7 @@ class _SignInState extends State<SignIn> {
   final TextEditingController _passwordController = TextEditingController();
 
   final AuthController _authController =
-  Get.put<AuthController>(AuthController());
+      Get.put<AuthController>(AuthController());
   // bool passwordVisible = true;
   final _formKey = GlobalKey<FormState>();
   bool passwordVisible = false;
@@ -101,8 +101,9 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
             ),
+            SizedBox(height: 16.0),
             Container(
-              width: double.infinity,
+              width: 300,
               height: 50,
               margin: const EdgeInsets.all(8.0),
               child: ElevatedButton(
@@ -114,8 +115,8 @@ class _SignInState extends State<SignIn> {
 
                     _authController
                         .signInwithEmailAndPassword(
-                        _emailController.value.text.trim(),
-                        _passwordController.value.text.trim())
+                            _emailController.value.text.trim(),
+                            _passwordController.value.text.trim())
                         .then((value) {
                       if (value) {
                         LoadingController().stopLoading();
@@ -125,8 +126,7 @@ class _SignInState extends State<SignIn> {
                         debugPrint(userMessage);
                       } else {
                         LoadingController().stopLoading();
-                        showErrorSnackbar(
-                            "Login failed, Something went wrong");
+                        showErrorSnackbar("Login failed, Something went wrong");
                       }
                     }).onError((error, stackTrace) {
                       LoadingController().stopLoading();
@@ -146,9 +146,9 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                   maximumSize: const Size(double.infinity, 100),
-                  backgroundColor: Colors.teal,
+                  backgroundColor: Color(0xFF035515),
                   side: const BorderSide(
-                    color: Colors.teal,
+                    color: Color(0xFF035515),
                   ),
                 ),
                 child: const Text(

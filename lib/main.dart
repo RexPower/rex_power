@@ -1,20 +1,26 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rexpower/constants/colors.dart';
 import 'package:rexpower/utilities/generate_color_swatch.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 
+import 'firebase_options.dart';
 import 'routing/router.dart';
 
 void main() async {
-  ///Call this first to make sure we can make other system level calls safely
+  // WidgetsFlutterBinding.ensureInitialized();
+  // usePathUrlStrategy();
+
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   if (Platform.isAndroid) {
-    // current: #1 1440x3120 @ 60Hz
-    // new: #2 1440x3120 @ 90Hz
+
     await FlutterDisplayMode.setHighRefreshRate();
   }
 

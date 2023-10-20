@@ -21,11 +21,8 @@ class RegisterState extends State<Register> {
   bool passwordVisible = false;
 
   final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _phoneNumberController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
-
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
@@ -189,7 +186,9 @@ class RegisterState extends State<Register> {
                     const SizedBox(height: 16.0),
                     RichText(
                       text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
+                        style: DefaultTextStyle.of(context)
+                            .style
+                            .copyWith(decoration: TextDecoration.none),
                         children: [
                           WidgetSpan(
                             child: GestureDetector(
@@ -241,10 +240,10 @@ class RegisterState extends State<Register> {
 
                             AuthController()
                                 .register(
-                                _emailController.value.text.trim(),
-                                _passwordController.value.text.trim(),
-                                _phoneNumberController.value.text.trim(),
-                                _firstAndNameController.value.text.trim())
+                                    _emailController.value.text.trim(),
+                                    _passwordController.value.text.trim(),
+                                    _phoneNumberController.value.text.trim(),
+                                    _firstAndNameController.value.text.trim())
                                 .then((value) {
                               if (value) {
                                 Get.toNamed(RoutePaths.login);
@@ -266,9 +265,9 @@ class RegisterState extends State<Register> {
                             ),
                           ),
                           maximumSize: const Size(double.infinity, 100),
-                          backgroundColor: Colors.teal,
+                          backgroundColor: Color(0xFF035515),
                           side: const BorderSide(
-                            color: Colors.teal,
+                            color: Color(0xFF035515),
                           ),
                         ),
                         child: const Text(
