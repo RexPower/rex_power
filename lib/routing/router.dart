@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:rexpower/features/authentication/login.dart';
-import 'package:rexpower/features/home/home_dashboard.dart';
+import 'package:rexpower/features/home/home_dashboard_screen.dart';
 import 'package:rexpower/features/home/profile_screen.dart';
 
 import '../features/authentication/first_auth_screen.dart';

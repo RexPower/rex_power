@@ -11,6 +11,8 @@ class GlobalBottomNav extends StatefulWidget {
 }
 
 class _GlobalBottomNavState extends State<GlobalBottomNav> {
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -20,6 +22,7 @@ class _GlobalBottomNavState extends State<GlobalBottomNav> {
       backgroundColor: primaryColor,
       showSelectedLabels: true,
       showUnselectedLabels: true,
+      currentIndex: currentIndex,
       onTap: (index) {
         String path = RouteNames.home;
 
