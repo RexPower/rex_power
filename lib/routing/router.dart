@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
-import 'package:rexpower/features/authentication/sign_in.dart';
+import 'package:rexpower/features/authentication/login.dart';
 import 'package:rexpower/features/home/home_dashboard.dart';
 import 'package:rexpower/features/home/profile_screen.dart';
 
-import '../features/authentication/login.dart';
+import '../features/authentication/first_auth_screen.dart';
 import '../features/authentication/register.dart';
 import '../features/authentication/splashscreen.dart';
 
@@ -13,11 +13,11 @@ final router = GoRouter(
   debugLogDiagnostics: true,
   routes: [
     GoRoute(
-      path: RouteNames.login,
-      builder: (context, state) => const Login(),
+      path: RouteNames.auth,
+      builder: (context, state) => const FirstAuthScreen(),
     ),
     GoRoute(
-      path: RouteNames.signin,
+      path: RouteNames.login,
       builder: (context, state) => SignIn(),
     ),
     GoRoute(
@@ -49,9 +49,9 @@ final router = GoRouter(
 
 class RouteNames {
   static const String splashscreen = "/Splashscreen";
-  static const String login = "/Login";
-  static const String signin = "/SignIn";
-  static const String register = "/Register";
+  static const String auth = "/auth";
+  static const String login = "/login";
+  static const String register = "/register";
 
   static const String home = "/home";
   static const String marketplace = "/marketplace";

@@ -1,131 +1,204 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-
+import '../../controllers/auth_controller.dart';
+import '../../controllers/loading_controller.dart';
 import '../../routing/router.dart';
+import '../../utilities/route_path.dart';
+import '../../utilities/show_error_snackbar.dart';
+import '../../utilities/show_snackbar.dart';
 
-class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+class SignIn extends StatefulWidget {
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  final AuthController _authController =
+      Get.put<AuthController>(AuthController());
+  // bool passwordVisible = true;
+  final _formKey = GlobalKey<FormState>();
+  bool passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const CircleAvatar(
-              radius: 100,
-              backgroundImage: AssetImage('assets/power2.jpg'),
-            ),
-            const SizedBox(height: 16.0),
-            const Center(),
-            const SizedBox(height: 16.0),
-            Center(
-              child: Text(
-                'Your everyday consumption record',
-                style: GoogleFonts.baiJamjuree(fontSize: 20),
+    return SafeArea(
+      child: Scaffold(
+        body: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              const Text(
+                'Sign In',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SizedBox(
-                  width: 300,
-                  height: 50,
+              const SizedBox(height: 8.0),
+              const Text(
+                'Insert your login details',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+
+                    if (!GetUtils.isEmail(value)) {
+                      return "Email is not valid";
+                    }
+
+                    return null;
+                  },
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    labelText: "Email",
+                    border: OutlineInputBorder(),
+                    alignLabelWithHint: false,
+                    filled: true,
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                  obscureText: !passwordVisible,
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    hintStyle: const TextStyle(color: Colors.black54),
+                    border: const OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      color: passwordVisible ? Colors.purple : Colors.grey,
+                      icon: Icon(passwordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          passwordVisible = !passwordVisible;
+                        });
+                      },
+                    ),
+                    alignLabelWithHint: false,
+                    filled: true,
+                  ),
+                ),
+              ),
+              SizedBox(height: 16.0),
+              Container(
+                width: 300,
+                height: 50,
+                margin: const EdgeInsets.all(8.0),
+                child: Hero(
+                  tag: 'login_button',
                   child: ElevatedButton(
                     onPressed: () async {
-                      GoRouter.of(context).push(RouteNames.register);
+                      if (_formKey.currentState!.validate()) {
+                        LoadingController().startLoading();
+
+                        var userMessage = "";
+
+                        _authController
+                            .signInwithEmailAndPassword(
+                                _emailController.value.text.trim(),
+                                _passwordController.value.text.trim())
+                            .then((value) {
+                          if (value) {
+                            LoadingController().stopLoading();
+                            context.go(RoutePaths.home);
+
+                            userMessage = "Login in successfully";
+                            debugPrint(userMessage);
+                          } else {
+                            LoadingController().stopLoading();
+                            showErrorSnackbar(
+                                "Login failed, Something went wrong");
+                          }
+                        }).onError((error, stackTrace) {
+                          LoadingController().stopLoading();
+
+                          userMessage = "Login failed, $error";
+                          showSnackbar("Oops", userMessage);
+                          debugPrint(userMessage);
+                        });
+                      }
                     },
                     style: OutlinedButton.styleFrom(
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(
-                            50,
+                            60,
                           ),
                         ),
                       ),
                       maximumSize: const Size(double.infinity, 100),
-                      backgroundColor: const Color(0xFF035515),
+                      backgroundColor: Color(0xFF035515),
                       side: const BorderSide(
                         color: Color(0xFF035515),
                       ),
                     ),
                     child: const Text(
-                      'Sign up',
+                      'Log In',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 30,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 300,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      GoRouter.of(context).push(RouteNames.signin);
-                    },
-                    style: OutlinedButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                            50,
-                          ),
-                        ),
-                      ),
-                      maximumSize: const Size(double.infinity, 100),
-                      backgroundColor: Colors.white,
-                      side: const BorderSide(
-                        color: Colors.white,
-                      ),
-                    ),
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Color(0xFF035515),
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              child: InkWell(
-                onTap: () {
-                  GoRouter.of(context).push(RouteNames.signin);
-                },
-                child: RichText(
-                  text: const TextSpan(
-                      text: 'New Around here? ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'DM Sans',
-                        fontSize: 16,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: 'Sign in',
-                          style: TextStyle(
-                              color: Color(0xFF035515), fontSize: 16),
-                        ),
-                      ]),
                 ),
               ),
-            ),
-          ]),
+              const SizedBox(height: 15.0),
+              const SizedBox(height: 29),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                child: InkWell(
+                  onTap: () {
+                    GoRouter.of(context).push(RouteNames.register);
+                  },
+                  child: RichText(
+                    text: const TextSpan(
+                        text: 'If your are a New User? ',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'DM Sans',
+                          fontSize: 15,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Register Now',
+                            style: TextStyle(
+                                color: Color(0xFF035514), fontSize: 16),
+                          ),
+                        ]),
+                  ),
+                ),
+              ),
+            ]),
+          ),
+        ),
+      ),
     );
   }
+
+  // void setState(Null Function() param0) {}
 }

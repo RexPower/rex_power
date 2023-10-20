@@ -16,44 +16,46 @@ class HomeDashboard extends StatefulWidget {
 class _HomeDashboardState extends State<HomeDashboard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const GlobalAppBar(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  GlobalHeadingText('Daily Usage'),
-                  const DailyUsageChart(),
-                  SummaryCard(
-                    columns: [
-                      SummaryCardItem(
-                          titleText: "Peak usage", valueText: "250w"),
-                      SummaryCardItem(
-                          titleText: "Lowest usage", valueText: "20w"),
-                      SummaryCardItem(
-                          titleText: "Units used", valueText: "N200"),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  GlobalHeadingText('Consumption Record'),
-                  ConsumptionRecordStack(),
-                ],
-              ),
-            )
-          ],
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const GlobalAppBar(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    GlobalHeadingText('Daily Usage'),
+                    const DailyUsageChart(),
+                    SummaryCard(
+                      columns: [
+                        SummaryCardItem(
+                            titleText: "Peak usage", valueText: "250w"),
+                        SummaryCardItem(
+                            titleText: "Lowest usage", valueText: "20w"),
+                        SummaryCardItem(
+                            titleText: "Units used", valueText: "N200"),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    GlobalHeadingText('Consumption Record'),
+                    ConsumptionRecordStack(),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
+        bottomNavigationBar: GlobalBottomNav(),
       ),
-      bottomNavigationBar: GlobalBottomNav(),
     );
   }
 }

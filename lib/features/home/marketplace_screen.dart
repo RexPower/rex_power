@@ -12,25 +12,27 @@ class Marketplace extends StatefulWidget {
 class _MarketplaceState extends State<Marketplace> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const GlobalAppBar(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(),
-                ],
-              ),
-            )
-          ],
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const GlobalAppBar(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
+        bottomNavigationBar: GlobalBottomNav(),
       ),
-      bottomNavigationBar: GlobalBottomNav(),
     );
   }
 }
